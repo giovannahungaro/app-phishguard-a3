@@ -1,10 +1,10 @@
 App PhishGuard (Projeto A3 - Bradesco)
 
 Integrantes do Grupo:
-Giovanna de Souza Húngaro - 1252429573
-Guilherme Araújo Mesquita - 12524228428
-Gustavo Henrique da Silva - 12523161925
-Júlia Cardoso Miranda - 12523173767
+Giovanna de Souza Húngaro - 1252429573;
+Guilherme Araújo Mesquita - 12524228428;
+Gustavo Henrique da Silva - 12523161925;
+Júlia Cardoso Miranda - 12523173767;
 
 
 Resumo da Proposta:
