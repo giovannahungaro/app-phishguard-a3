@@ -10,6 +10,7 @@ Gustavo Henrique da Silva - 12523161925
 
 Júlia Cardoso Miranda - 12523173767
 
+Kennedy de Souza Aragão - 1252423977
 
 Resumo da Proposta:
 Este projeto é uma API REST modularizada (microsserviços) focada em combater golpes de Phishing. A API recebe uma URL ou mensagem suspeita, analisa seu potencial de risco (usando APIs externas e análise interna) e retorna um status (SEGURO, SUSPEITO, PERIGOSO), ajudando a prevenir que usuários de serviços financeiros cliquem em links maliciosos.
