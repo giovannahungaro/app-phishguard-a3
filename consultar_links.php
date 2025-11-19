@@ -91,20 +91,20 @@ if ($q !== '') {
 
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="header-left">
+       
+            <img src="logo.png" alt="PhishGuard Logo" style="width:36px; height:36px; border-radius:6px;">
         
-        <img src="logo.png" alt="PhishGuard Logo" style="width:36px; height:36px; border-radius:6px;">
-        <span class="brand">PhishGuard</span>
-        <nav aria-label="Main navigation" style="margin-left:18px;">
-          <ul>
-            <li style="display:inline"><a href="index.html" id="nav-home">Home</a></li>
-            <li style="display:inline"><a href="funcionarios.php" target="_blank" id="nav-dados">BD - Funcionário</a></li>
-            <li style="display:inline"><a href="consultar_links.php" id="nav-consultar" class="active">Consulta de Links</a></li>
-            <li style="display:inline"><a href="brandbook.php" id="nav-brand">Brandbook</a></li>
-          </ul>
+        <div class="header-title">PhishGuard</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="funcionarios.php" >BD - Funcionários</a>
+            <a href="consultar_links.php" class="active">Consulta de Links</a>
+            <a href="brandbook.php">Brandbook</a>
         </nav>
-   
     </div>
 
     <div class="header-user">
