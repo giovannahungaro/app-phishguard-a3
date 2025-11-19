@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PhishGuard - Admin</title>
+
+  <!-- Tipografia (opcional, Internet precisa estar ativa) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary: #010914;    /* cor principal que você pediu */
+      --light: #E5E5E5;
+      --muted: rgba(229,229,229,0.85);
+      --card-bg: rgba(255,255,255,0.03);
+      --accent: #0A1733;
+    }
+
+    *{box-sizing:border-box;font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0;}
+
+    html,body{height:100%;}
+    body{
+      background: var(--primary);
+      color: var(--light);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* HEADER / NAVBAR */
+    header{
+      height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 28px;
+      background: var(--primary);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .left {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo-box {
+      width:36px;height:36px;border-radius:6px;
+      background: var(--light);
+      display:inline-block;
+    }
+    .brand { font-weight:600; font-size:18px; color:var(--light); }
+
+    nav ul{ list-style:none; display:flex; gap:26px; align-items:center; margin-left:28px; }
+    nav a { color:var(--muted); text-decoration:none; font-weight:500; font-size:15px; padding-bottom:6px; }
+    nav a.active { color:var(--light); border-bottom:2px solid var(--light); }
+
+    .header-right { display:flex; align-items:center; gap:10px; font-size:15px; color:var(--muted); }
+    .user-avatar { width:30px;height:30px;border-radius:50%;border:2px solid var(--light); background:transparent; display:inline-block; }
+
+    /* LAYOUT */
+    main { flex:1; padding:32px 48px; }
+
+    /* LOGIN CARD */
+    .center-wrap { display:none; justify-content:center; align-items:flex-start; padding-top:36px; }
+    .login-card{
+      width:380px;
+      background: var(--light);
+      color: var(--primary);
+      border-radius:12px;
+      padding:28px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    }
+    .login-card h2{ margin-bottom:8px; font-size:22px; }
+    .login-card p{ margin-bottom:18px; color: rgba(1,9,20,0.7); }
+
+    .input { width:100%; padding:12px 14px; border-radius:8px; border:1px solid rgba(1,9,20,0.08); margin-bottom:12px; font-size:15px; }
+    .btn-primary { width:100%; padding:12px; border-radius:10px; border:none; cursor:pointer; font-weight:600;
+      background: var(--primary); color: var(--light); box-shadow: 0 6px 14px rgba(1,9,20,0.4); }
+    .btn-primary:hover { transform:translateY(-1px); }
+
+    .error-msg { color:#b72222; font-size:14px; margin-bottom:10px; display:none; }
+
+    /* DASHBOARD / HOME */
+    .dashboard { display:none; flex-direction:column; gap:20px; }
+    .dashboard.active{ display:flex; }
+
+    .page-title { font-size:26px; font-weight:700; color:var(--light); margin-bottom:6px;}
+    .page-sub { color:var(--muted); margin-bottom:18px; }
+
+    .powerbi {
+      height:520px;
+      background: var(--card-bg);
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.06);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    /* RWD */
+    @media (max-width:900px){
+      nav ul{ display:none; }
+      header{ padding: 12px 18px; }
+      main{ padding: 20px; }
+      .center-wrap{ padding-top:12px; }
+      .login-card{ width:92%; }
+      .powerbi{ height:360px; }
+    }
+
+    /* FOOTER */
+    footer{ text-align:center; padding:14px; color:var(--muted); font-size:13px; border-top:1px solid rgba(255,255,255,0.02); background:transparent; }
+  </style>
+</head>
+<body>
+  <!-- Header comum (sempre presente) -->
+  <header>
+    <div style="display:flex; align-items:center;">
+      <div class="left">
+        <img src="logo.png" alt="PhishGuard Logo" style="width:36px; height:36px; border-radius:6px;">
+<span class="brand">PhishGuard</span>
+        <nav aria-label="Main navigation" style="margin-left:18px;">
+          <ul>
+            <li style="display:inline"><a href="index.html" id="nav-home" class="active">Home</a></li>
+            <li style="display:inline"><a href="funcionarios.php" target="_blank" id="nav-dados">BD - Funcionário</a></li>
+            <li style="display:inline"><a href="consultar_links.php" id="nav-consultar">Consulta de Links</a></li>
+            <li style="display:inline"><a href="brandbook.php" id="nav-brand">Brandbook</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="user-avatar" aria-hidden="true"></span>
+      <span id="header-username">Convidado</span>
+    </div>
+  </header>
+
+  <!-- Main: o index será o ponto único de entrada -->
+  <main>
+    <!-- ÁREA DE LOGIN (visível por padrão) -->
+    <div class="center-wrap" id="loginView">
+      <div class="login-card" role="form" aria-labelledby="loginTitle">
+        <h2 id="loginTitle">PhishGuard Admin</h2>
+        <p>Faça login para acessar o painel administrativo.</p>
+
+        <div id="error" class="error-msg">Usuário ou senha incorretos.</div>
+
+        <input id="inputUser" class="input" type="text" placeholder="Usuário" autocomplete="off" />
+        <input id="inputPass" class="input" type="password" placeholder="Senha" autocomplete="off" />
+
+        <button id="btnLogin" class="btn-primary">Entrar</button>
+      </div>
+    </div>
+
+    <!-- ÁREA DA HOME (escondida até o login) -->
+    <section id="homeView" class="dashboard" aria-hidden="true">
+      <div>
+        <div class="page-title">Bem-vindo, Administrador</div>
+        <div class="page-sub">Visão geral do uso do PhishGuard — relatórios e métricas.</div>
+      </div>
+
+      <!-- Simulação do Power BI (cole o iframe do Power BI aqui quando tiver) -->
+<div style="position:relative; padding-top:56.25%; height:0;">
+    <iframe
+        title="dash"
+        src="https://app.powerbi.com/reportEmbed?reportId=e09b5b9a-216a-47e8-82c3-0866bb94b072&autoAuth=true&ctid=f310b526-e195-4805-a55e-67e28f2fefdb"
+        style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+        allowFullScreen="true">
+    </iframe>
+</div>
+
+
+      <!-- Aqui você pode adicionar cards, tabelas e etc -->
+      <div style="display:flex; gap:16px; margin-top:12px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:220px; background:var(--card-bg); border-radius:10px; padding:14px; border:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:14px; color:var(--muted)">Links verificados</div>
+          <div style="font-size:22px; font-weight:700; margin-top:8px;">1.234</div>
+        </div>
+        <div style="flex:1; min-width:220px; background:var(--card-bg); border-radius:10px; padding:14px; border:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:14px; color:var(--muted)">Maliciosos detectados</div>
+          <div style="font-size:22px; font-weight:700; margin-top:8px; color:#ffb4b4;">78</div>
+        </div>
+        <div style="flex:1; min-width:220px; background:var(--card-bg); border-radius:10px; padding:14px; border:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:14px; color:var(--muted)">Usuários ativos</div>
+          <div style="font-size:22px; font-weight:700; margin-top:8px;">23</div>
+        </div>
+      </div>
+
+      <!-- Botão de sair -->
+      <div style="margin-top:22px;">
+        <button id="btnLogout" class="btn-primary" style="background:#b72222; box-shadow:none;">Sair</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 PhishGuard, Inc. All rights reserved.</footer>
+
+  <script>
+  // Credenciais temporárias
+  const ADMIN_USER = 'admin';
+  const ADMIN_PASS = '1234';
+
+  // Elementos
+  const loginView = document.getElementById('loginView');
+  const homeView = document.getElementById('homeView');
+  const headerUser = document.getElementById('header-username');
+  const inputUser = document.getElementById('inputUser');
+  const inputPass = document.getElementById('inputPass');
+  const btnLogin = document.getElementById('btnLogin');
+  const btnLogout = document.getElementById('btnLogout');
+  const errorBox = document.getElementById('error');
+
+  // ================================
+  //  LOGIN PERSISTENTE (NOVIDADE)
+  // ================================
+  window.addEventListener("load", () => {
+    const savedUser = localStorage.getItem("pg_user");
+
+    if (savedUser) {
+      // já está logado → vai direto pra HOME
+      showHome(savedUser);
+    } else {
+      // não está logado
+      showLogin();
+      inputUser.focus();
+    }
+  });
+
+  // Função: mostrar login
+  function showLogin() {
+    loginView.style.display = 'flex';
+    homeView.style.display = 'none';
+    homeView.classList.remove('active');
+    headerUser.textContent = 'Convidado';
+
+    // limpa inputs e erro
+    errorBox.style.display = 'none';
+    inputUser.value = '';
+    inputPass.value = '';
+  }
+
+  // Função: mostrar home
+  function showHome(username) {
+    loginView.style.display = 'none';
+    homeView.style.display = 'flex';
+    homeView.classList.add('active');
+    headerUser.textContent = username || 'Administrador';
+    errorBox.style.display = 'none';
+  }
+
+  // Login
+  btnLogin.addEventListener('click', () => {
+    const u = inputUser.value.trim();
+    const p = inputPass.value.trim();
+
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+
+      // 🔥 Salva login para persistir
+      localStorage.setItem("pg_user", u);
+
+      showHome(u);
+    } else {
+      errorBox.textContent = 'Usuário ou senha incorretos.';
+      errorBox.style.display = 'block';
+    }
+  });
+
+  // Enter
+  [inputUser, inputPass].forEach(el => {
+    el.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') btnLogin.click();
+    });
+  });
+
+  // Logout
+  btnLogout.addEventListener('click', () => {
+
+    // 🔥 Remove login e volta ao início
+    localStorage.removeItem("pg_user");
+
+    showLogin();
+  });
+
+  // ===== NAVEGAÇÃO CORRETA =====
+
+// Home — não precisa abrir nova página
+document.getElementById('nav-home').addEventListener('click', () => {
+    setActiveNav('nav-home');
+    // home já está na index
+});
+
+// BD Funcionário — abre normalmente
+document.querySelector('a[href="funcionarios.php"]').addEventListener('click', () => {
+    setActiveNav('nav-dados');
+    // deixa o navegador seguir o link normalmente
+});
+
+// Consulta de Links — coloque o link correto quando você tiver a página
+document.querySelector('a[href="consultar_links.php"]').addEventListener('click', (e) => {
+    setActiveNav('nav-consultar');
+});
+
+// Brandbook — idem
+document.querySelector('a[href="#brandbook"]').addEventListener('click', (e) => {
+    setActiveNav('nav-brand');
+});
+
+// manter função de destaque
+function setActiveNav(id) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+</script>
+
+</body>
+</html>

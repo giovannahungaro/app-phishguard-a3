@@ -1,0 +1,162 @@
+<?php
+// consultar_links.php - PhishGuard
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+function esc($v) {
+    return htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
+}
+
+// Simulação temporária (até conectar ao banco real)
+$links = [
+    ["url" => "https://www.google.com", "status" => "Seguro"],
+    ["url" => "http://sitefake.ru/login", "status" => "Malicioso"],
+    ["url" => "https://meusiteprotegido.com", "status" => "Seguro"]
+];
+
+// Barra de pesquisa simulada
+$q = trim($_GET['q'] ?? '');
+
+if ($q !== '') {
+    $links = array_filter($links, function($row) use ($q) {
+        return stripos($row["url"], $q) !== false ||
+               stripos($row["status"], $q) !== false;
+    });
+}
+
+?>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Consulta de Links | PhishGuard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .page-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            width: 320px;
+            background: #0E1A36;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        th {
+            background: #0A1733;
+            color: #E5E5E5;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .status-safe {
+            color: #14b854;
+            font-weight: bold;
+        }
+
+        .status-danger {
+            color: #d13232;
+            font-weight: bold;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-left">
+        
+        <img src="logo.png" alt="PhishGuard Logo" style="width:36px; height:36px; border-radius:6px;">
+        <span class="brand">PhishGuard</span>
+        <nav aria-label="Main navigation" style="margin-left:18px;">
+          <ul>
+            <li style="display:inline"><a href="index.html" id="nav-home">Home</a></li>
+            <li style="display:inline"><a href="funcionarios.php" target="_blank" id="nav-dados">BD - Funcionário</a></li>
+            <li style="display:inline"><a href="consultar_links.php" id="nav-consultar" class="active">Consulta de Links</a></li>
+            <li style="display:inline"><a href="brandbook.php" id="nav-brand">Brandbook</a></li>
+          </ul>
+        </nav>
+   
+    </div>
+
+    <div class="header-user">
+        <div class="header-user-icon"></div>
+        <span>Administrador</span>
+    </div>
+</header>
+
+<main class="main-container">
+
+    <h1 class="page-title">Consulta de Links</h1>
+    <p class="page-subtitle">Verifique URLs identificadas como seguras ou maliciosas.</p>
+
+    <div class="page-actions">
+        <form method="get">
+            <input type="search" name="q" value="<?= esc($q) ?>" class="search-input" placeholder="Pesquisar URL...">
+        </form>
+    </div>
+
+    <div class="card">
+        <?php if (!$links): ?>
+            <p>Nenhum registro encontrado.</p>
+        <?php else: ?>
+            <table>
+                <thead>
+                <tr>
+                    <th>Endereço da URL</th>
+                    <th style="width:180px;">Resultado da análise</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($links as $l): ?>
+                    <tr>
+                        <td><?= esc($l['url']) ?></td>
+                        <td>
+                            <?php if (strtolower($l['status']) === 'seguro'): ?>
+                                <span class="status-safe">Seguro</span>
+                            <?php else: ?>
+                                <span class="status-danger">Malicioso</span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+
+</main>
+
+<footer>© 2025 PhishGuard. All rights reserved.</footer>
+
+</body>
+</html>
