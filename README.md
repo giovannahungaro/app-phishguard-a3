@@ -30,6 +30,7 @@ SUSPEITO
 MALWARE / MALICIOSO
 
 INCONCLUSIVO
+
 ✔ Armazena todas as verificações no banco de dados
 ✔ Exibe um histórico completo
 ✔ Permite exportar dados em CSV
@@ -72,14 +73,14 @@ Validações internas de URL
 
 Fluxo de telas responsivo e adequado ao mobile
 
-🚀 Principais Funcionalidades
+🚀 Principais Funcionalidades:
 ✔ Verificação de URLs
 
-Processa o link utilizando análise local e consulta à API do VirusTotal.
+Processa o link em consulta à API externa do VirusTotal.
 
 ✔ Classificação do link
 
-Exibe interface específica para cada tipo de resultado.
+Exibe interface específica para cada tipo de resultado (SEGURO / MALWARE ou MALISIOSO / INCONCLUSIVO).
 
 ✔ Histórico completo
 
@@ -99,8 +100,7 @@ A cada execução, o sistema cria um runtime user no banco para registrar as ope
 
 Instale MySQL e crie o banco:
 
-CREATE DATABASE phishguard;
-
+utlize os .sql disponibilizados aqui no repositorio github na pasta "Database"
 
 Configure o application.properties:
 
@@ -114,13 +114,18 @@ Adicione sua API KEY do VirusTotal: (Necessario pois se não todas as verificaç
 
 virustotal.api.key=SUA_KEY
 
+Para conseguir uma key do VirusTotal acesse https://docs.virustotal.com/docs/please-give-me-an-api-key e siga as instruções.
 
 Rodar pelo NetBeans ou Maven
 
 
-Acessar no navegador:
+Acessar no navegador pra fazer as verificações:
 
 http://localhost:8080/
+
+Acessar no navegador para consultar as verificações ja feitas e fazer o download do csv de usuarios e de verificações:
+
+http://localhost:8080/history
 
 🧪 Testes de URL
 
