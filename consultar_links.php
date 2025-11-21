@@ -7,14 +7,49 @@ function esc($v) {
     return htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
 }
 
-// Simulação temporária (até conectar ao banco real)
-$links = [
-    ["url" => "https://www.google.com", "status" => "Seguro"],
-    ["url" => "http://sitefake.ru/login", "status" => "Malicioso"],
-    ["url" => "https://meusiteprotegido.com", "status" => "Seguro"]
-];
+// Ler dados do CSV
+$links = [];
+$csvFile = 'verifications_all.csv';
 
-// Barra de pesquisa simulada
+if (file_exists($csvFile)) {
+    $handle = fopen($csvFile, 'r');
+    
+    if ($handle !== false) {
+        // Ler a primeira linha (cabeçalho)
+        $header = fgetcsv($handle, 0, ',');
+        
+        // Identificar índices das colunas (adapte conforme o seu CSV)
+        // Assumindo que as colunas são: url, status (ou resultado)
+        $urlIndex = array_search('url', array_map('strtolower', $header));
+        $statusIndex = array_search('status', array_map('strtolower', $header));
+        
+        // Se não encontrar 'status', tenta 'resultado'
+        if ($statusIndex === false) {
+            $statusIndex = array_search('resultado', array_map('strtolower', $header));
+        }
+        
+        // Ler as linhas de dados
+        while (($row = fgetcsv($handle, 0, ',')) !== false) {
+            if (count($row) > max($urlIndex, $statusIndex)) {
+                $links[] = [
+                    'url' => $row[$urlIndex] ?? '',
+                    'status' => $row[$statusIndex] ?? ''
+                ];
+            }
+        }
+        
+        fclose($handle);
+    }
+} else {
+    // Se o arquivo não existir, usar dados de exemplo
+    $links = [
+        ["url" => "https://www.google.com", "status" => "Seguro"],
+        ["url" => "http://sitefake.ru/login", "status" => "Malicioso"],
+        ["url" => "https://meusiteprotegido.com", "status" => "Seguro"]
+    ];
+}
+
+// Barra de pesquisa
 $q = trim($_GET['q'] ?? '');
 
 if ($q !== '') {
@@ -86,6 +121,15 @@ if ($q !== '') {
             border-radius: 12px;
             margin-bottom: 12px;
         }
+
+        .info-message {
+            background: rgba(20, 184, 84, 0.1);
+            border: 1px solid rgba(20, 184, 84, 0.3);
+            color: #14b854;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 
@@ -117,6 +161,12 @@ if ($q !== '') {
 
     <h1 class="page-title">Consulta de Links</h1>
     <p class="page-subtitle">Verifique URLs identificadas como seguras ou maliciosas.</p>
+
+    <?php if (file_exists($csvFile)): ?>
+        <div class="info-message">
+            📊 Carregados <?= count($links) ?> registros do arquivo CSV
+        </div>
+    <?php endif; ?>
 
     <div class="page-actions">
         <form method="get">
