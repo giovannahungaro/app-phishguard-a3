@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Verificações - PhishGuard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f3f3f3;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #111;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        thead {
+            background-color: #050c32;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .btn-export {
+            background-color: #050c32;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-bottom: 18px;
+            width: 100%;
+        }
+
+        .remove-btn {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .remove-btn:hover {
+            opacity: 0.85;
+        }
+
+        .btn-back {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            color: #050c32;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Histórico de Verificações</h1>
+
+    <!-- Botões de exportação -->
+    <form action="/history/export" method="get">
+        <button class="btn-export">Baixar CSV - Todas Verificações</button>
+    </form>
+
+    <form action="/usuarios/export" method="get">
+        <button class="btn-export">Baixar CSV - Todos Usuários</button>
+    </form>
+
+    <!-- Tabela -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>URL</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Usuário</th>
+            <th>Resposta VT</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="v : ${verifications}">
+            <td th:text="${v.id}">1</td>
+            <td th:text="${v.url}">http://exemplo.com</td>
+            <td th:text="${v.status}">SEGURO</td>
+            <td th:text="${v.verificationDate != null ? #temporals.format(v.verificationDate, 'yyyy-MM-dd HH:mm:ss') : '---'}"></td>
+            <td th:text="${v.userId}">12</td>
+
+            <td>
+                <pre style="white-space: pre-wrap; font-size: 11px; max-height: 90px; overflow-y: auto;"
+                     th:text="${v.vtResponse} ?: '---'">resposta VT</pre>
+            </td>
+
+            <!-- Botão REMOVER -->
+            <td>
+                <form th:action="@{'/history/delete/' + ${v.id}}" method="post"
+                      onsubmit="return confirm('Deseja realmente remover esta verificação?');">
+                    <button type="submit" class="remove-btn">Remover</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <a href="/" class="btn-back">Voltar</a>
+
+</div>
+
+</body>
+</html>

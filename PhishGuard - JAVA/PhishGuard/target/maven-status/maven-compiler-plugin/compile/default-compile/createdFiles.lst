@@ -1,0 +1,13 @@
+com\phishguard\repository\VerificationRepository.class
+com\phishguard\entity\SuspectLink.class
+com\phishguard\entity\Verification$Status.class
+com\phishguard\controller\AppController.class
+com\phishguard\config\CurrentUser.class
+com\phishguard\config\AppStartupRunner.class
+com\phishguard\controller\VerificationController.class
+com\phishguard\PhishGuardApplication.class
+com\phishguard\repository\SuspectLinkRepository.class
+com\phishguard\repository\UsuarioRepository.class
+com\phishguard\entity\Usuario.class
+com\phishguard\service\VerificationService.class
+com\phishguard\entity\Verification.class

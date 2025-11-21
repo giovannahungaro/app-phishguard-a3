@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <title>PhishGuard — Perigo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --navy-gradient-start:#0b0c2b;
+      --navy-gradient-end:#0f1633;
+      --pill-bg:#0b1026;
+      --card-dark:#0b0b26;
+      --muted:#c7c9d3;
+      --danger:#F2C94C; /* use yellow for triangle bg */
+      --accent:#0b0b26;
+      --blue-link:#1e5bff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family: "Inter", Arial, sans-serif; background:#fff; display:flex; align-items:center; justify-content:center; padding:20px; min-height:100vh}
+    .phone{width:360px; height:780px; border-radius:28px; overflow:hidden; box-shadow:0 8px 30px rgba(2,8,40,0.25); background:#fff; display:flex; flex-direction:column}
+    .header{position:relative; background: linear-gradient(180deg,var(--navy-gradient-start),var(--navy-gradient-end)); color:white; padding:22px 20px 26px 20px; height:160px}
+    .logo-row{display:flex; gap:12px; align-items:center}
+    .brand-name{font-weight:700; letter-spacing:1px; font-size:22px}
+    .desc{margin-top:12px; color:#dfe3f4; font-size:14px; line-height:1.2; max-width:300px}
+
+    .wave{position:absolute; bottom:-8px; left:0; width:100%; height:64px; transform: translateY(2px);}
+    .content{flex:1; padding:24px; display:flex; flex-direction:column}
+
+    .section-title {text-align:center; color:#20212a; margin:8px 0 18px 0; font-weight:600; letter-spacing:1px}
+    .link-line{font-size:15px;color:#1e1e28;margin-bottom:12px}
+
+    .card {
+      background: linear-gradient(180deg, #050519 0%, #0b0b26 100%);
+      border-radius:18px;
+      padding:22px;
+      color:white;
+      box-shadow: 0 8px 26px rgba(3,9,30,0.25);
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .card .icon {
+      width:72px;height:72px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background: #0b0b26;
+      flex-shrink:0;
+    }
+
+    .card .text { font-size:18px; line-height:1.35; color:#fff; flex:1; }
+
+    .card .small {
+      display:flex;align-items:center;gap:8px;color:#f1cbd0;margin-top:14px;font-size:13px;
+    }
+
+    .actions { margin-top:22px; display:flex; flex-direction:column; gap:12px; align-items:center; }
+    .actions button {
+      background:var(--pill-bg); color:white; border:none; border-radius:28px; padding:12px 18px; width:86%;
+      font-weight:700; box-shadow: 0 6px 18px rgba(5,8,30,0.18);
+    }
+    .bottom-link{display:block;text-align:center;color:var(--blue-link); margin-top:8px; text-decoration:none; font-size:13px}
+
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="header">
+      <div class="logo-row">
+        <!-- logo svg -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <g fill="none" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 15a4 4 0 0 1 4-4h1"></path>
+            <path d="M11 9a4 4 0 1 1 0 8h-2"></path>
+            <circle cx="17.5" cy="17.5" r="3.2" fill="white"></circle>
+            <path d="M19.2 19.2l2.2 2.2" stroke="#0b0b1e"></path>
+          </g>
+        </svg>
+        <div class="brand-name">PHISHGUARD</div>
+      </div>
+
+      <div class="desc">PhishGuard Descrição<br>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+
+      <svg class="wave" viewBox="0 0 800 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 40 C120 10 260 60 400 40 C540 20 680 60 800 40 L800 80 L0 80 Z" fill="#cfcfd7" opacity="0.95"></path>
+        <path d="M0 48 C120 18 260 68 400 48 C540 28 680 68 800 48 L800 80 L0 80 Z" fill="rgba(5,6,30,0.85)"></path>
+      </svg>
+    </div>
+
+    <div class="content">
+      <div class="section-title">----- CASO DE LINK QUE É RUIM -----</div>
+      <div class="link-line"><strong>Link:</strong> [[${url}]]</div>
+
+      <div class="card">
+        <div class="icon" aria-hidden>
+          <!-- yellow triangle with exclamation SVG -->
+          <svg width="56" height="56" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="32 6 58 52 6 52" fill="#F2C94C"></polygon>
+            <rect x="30" y="22" width="4" height="18" rx="2" fill="#0b0b26"></rect>
+            <circle cx="32" cy="46" r="3.5" fill="#0b0b26"></circle>
+          </svg>
+        </div>
+
+        <div class="text">
+          O link verificado pode ser <strong>malicioso</strong>. Há riscos de roubo de informações.
+          <div class="small"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#ff8fb8" stroke-width="1.2"></circle></svg>
+            Parabéns você identificou um Phishing e está mais seguro.
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <form action="/" method="get" style="width:100%; display:flex; justify-content:center">
+          <button type="submit">Verificar outro link</button>
+        </form>
+        <a class="bottom-link" href="/">Voltar</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

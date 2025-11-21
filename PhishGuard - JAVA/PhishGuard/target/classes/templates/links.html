@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gerenciar Links Suspeitos - PhishGuard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+        h1 { color: #cc0000; margin: 0; }
+        .menu a { margin-right: 15px; text-decoration: none; color: #333; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 20px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #cc0000; color: white; }
+        .form-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .form-container input, .form-container button { padding: 8px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .action-button { background-color: #5cb85c; color: white; border: none; cursor: pointer; margin-right: 5px; }
+        .delete-button { background-color: #d9534f; }
+        .edit-row { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Gerenciar Links Suspeitos</h1>
+        <div class="menu">
+            <a th:href="@{/admin/dashboard}">Visualizar Relatórios</a>
+            <span class="logout"><a th:href="@{/logout}">Sair</a></span>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Incluir Novo Link Suspeito</h2>
+        <form th:action="@{/admin/links/add}" th:object="${newLink}" method="post">
+            <input type="text" th:field="*{url}" placeholder="URL Suspeita (Ex: http://phish-bradesco.com)" size="60" required />
+            <input type="text" th:field="*{reason}" placeholder="Motivo (Ex: Tentativa de login falsa)" size="40" required />
+            <button type="submit" class="action-button">Salvar Link</button>
+        </form>
+    </div>
+
+    <h2>Base de Links Suspeitos (Suspect Links)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>URL</th>
+                <th>Motivo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="link : ${links}">
+                <td th:text="${link.id}">1</td>
+                <td th:text="${link.url}"></td>
+                <td th:text="${link.reason}"></td>
+                <td>
+                    <form th:action="@{/admin/links/delete/{id}(id=${link.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="action-button delete-button">Excluir</button>
+                    </form>
+                    
+                    <button type="button" class="action-button" onclick="document.getElementById('editForm_' + [[${link.id}]]).style.display='block'">Editar</button>
+                </td>
+            </tr>
+            <tr th:each="link : ${links}" class="edit-row" style="display:none;" th:id="'editForm_' + ${link.id}">
+                <form th:action="@{/admin/links/edit/{id}(id=${link.id})}" method="post">
+                    <td th:text="${link.id}"></td>
+                    <td><input type="text" name="url" th:value="${link.url}" size="50" required /></td>
+                    <td><input type="text" name="reason" th:value="${link.reason}" size="30" required /></td>
+                    <td>
+                        <button type="submit" class="action-button">Salvar Edição</button>
+                        <button type="button" onclick="document.getElementById('editForm_' + [[${link.id}]]).style.display='none'">Cancelar</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,12 @@
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\config\AppStartupRunner.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\config\CurrentUser.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\controller\AppController.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\controller\VerificationController.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\entity\SuspectLink.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\entity\Usuario.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\entity\Verification.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\PhishGuardApplication.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\repository\SuspectLinkRepository.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\repository\UsuarioRepository.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\repository\VerificationRepository.java
+C:\Users\gusta\Documents\NetBeansProjects\PhishGuard\src\main\java\com\phishguard\service\VerificationService.java

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard - Resultado Inconclusivo</title>
+
+    <style>
+        /* Variáveis CSS baseadas na sua referência */
+        :root {
+            --navy-gradient-start: #0b0c2b;
+            --navy-gradient-end: #0f1633;
+            --pill-bg: #0b1026;
+            --card-dark: #0b0b26;
+            --muted: #c7c9d3;
+            --success: #2e7d32; /* Não será usado diretamente aqui, mas mantido */
+            --blue-link: #1e5bff;
+            --warning-icon-bg: #636391; /* Cor de fundo para o ícone de aviso */
+            --warning-icon-border: #9b9bb2; /* Borda para o ícone de aviso */
+            --warning-text-color: #a0a0a0; /* Cor para o texto de aviso inferior */
+        }
+
+        /* Reset e estilos globais */
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "Inter", Arial, sans-serif; /* Usando Inter se disponível, senão Arial */
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Container principal "phone" */
+        .phone {
+            width: 360px; /* Largura fixa como na referência */
+            height: 780px; /* Altura fixa como na referência */
+            border-radius: 28px; /* Arredondamento da "tela" */
+            overflow: hidden; /* Garante que o conteúdo não vaze */
+            box-shadow: 0 8px 30px rgba(2,8,40,0.25); /* Sombra mais pronunciada */
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            position: relative;
+            background: linear-gradient(180deg, var(--navy-gradient-start), var(--navy-gradient-end));
+            color: white;
+            padding: 22px 20px 26px 20px; /* Padding ajustado */
+            height: 160px; /* Altura do header */
+            border-bottom-left-radius: 0; /* Removido, a onda SVG cuida disso */
+            border-bottom-right-radius: 0; /* Removido */
+        }
+
+        .logo-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 22px;
+        }
+
+        .desc {
+            margin-top: 12px;
+            color: #dfe3f4;
+            font-size: 14px;
+            line-height: 1.2;
+            max-width: 300px;
+        }
+
+        /* Onda SVG no header */
+        .wave {
+            position: absolute;
+            bottom: -8px; /* Posição para que a onda se sobreponha */
+            left: 0;
+            width: 100%;
+            height: 64px; /* Altura da onda */
+            transform: translateY(2px); /* Ajuste fino */
+        }
+        /* --- FIM HEADER --- */
+
+
+        /* Conteúdo principal abaixo do header */
+        .content {
+            flex: 1; /* Ocupa o espaço restante */
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #20212a;
+            margin: 8px 0 18px 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .link-line {
+            font-size: 15px;
+            color: #1e1e28;
+            margin-bottom: 12px;
+        }
+
+        /* Card principal (ajustado para o estilo da referência) */
+        .card {
+            background: linear-gradient(180deg, #050519 0%, #0b0b26 100%); /* Gradiente como na referência */
+            border-radius: 18px; /* Arredondamento do card */
+            padding: 22px;
+            color: white;
+            box-shadow: 0 8px 26px rgba(3,9,30,0.25); /* Sombra mais forte */
+            display: flex;
+            gap: 18px;
+            align-items: flex-start; /* Alinhamento ao topo */
+        }
+
+        /* Ícone dentro do card */
+        .card .icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px; /* Arredondamento menor para o container do ícone */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--warning-icon-bg); /* Fundo específico para o ícone de aviso */
+            flex-shrink: 0; /* Não permite que o ícone encolha */
+            border: 2px solid var(--warning-icon-border); /* Borda para o ícone de aviso */
+        }
+        .card .icon svg { /* Estilo do SVG dentro do ícone para o '?' */
+            width: 48px;
+            height: 48px;
+            fill: #ffffff; /* Cor branca para o ponto de interrogação */
+            stroke: #ffffff; /* Cor da linha para o ponto de interrogação */
+        }
+
+        .card .text {
+            font-size: 18px;
+            line-height: 1.35;
+            color: #fff;
+            flex: 1;
+        }
+
+        /* Mensagem pequena abaixo do texto principal */
+        .card .small {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--warning-text-color); /* Cor para o texto de aviso inferior */
+            margin-top: 14px;
+            font-size: 13px;
+        }
+
+        /* Ações (botão e link) */
+        .actions {
+            margin-top: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        .actions form {
+            width: 100%; /* Garante que o formulário ocupe a largura total */
+            display: flex;
+            justify-content: center;
+        }
+        .actions button {
+            background: var(--pill-bg);
+            color: white;
+            border: none;
+            border-radius: 28px; /* Mais arredondado */
+            padding: 12px 18px;
+            width: 86%; /* Largura do botão */
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(5,8,30,0.18); /* Sombra mais sutil */
+            cursor: pointer;
+            font-size: 16px; /* Ajuste do tamanho da fonte */
+        }
+        .bottom-link {
+            display: block;
+            text-align: center;
+            color: var(--blue-link);
+            margin-top: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600; /* Adicionado peso para o link */
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="header">
+            <div class="logo-row">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <g fill="none" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 15a4 4 0 0 1 4-4h1"></path>
+                        <path d="M11 9a4 4 0 1 1 0 8h-2"></path>
+                        <circle cx="17.5" cy="17.5" r="3.2" fill="white"></circle>
+                        <path d="M19.2 19.2l2.2 2.2" stroke="#0b0b1e"></path>
+                    </g>
+                </svg>
+                <div class="brand-name">PHISHGUARD</div>
+            </div>
+
+            <div class="desc">PhishGuard Descrição<br>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+
+            <svg class="wave" viewBox="0 0 800 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 40 C120 10 260 60 400 40 C540 20 680 60 800 40 L800 80 L0 80 Z" fill="#cfcfd7" opacity="0.95"></path>
+                <path d="M0 48 C120 18 260 68 400 48 C540 28 680 68 800 48 L800 80 L0 80 Z" fill="rgba(5,6,30,0.85)"></path>
+            </svg>
+        </div>
+
+        <div class="content">
+            <div class="section-title">----- CASO DE LINK INCONCLUSIVO -----</div>
+            <div class="link-line"><strong>Link:</strong> <span th:text="${url}">Adicionar o link que foi verificado.</span></div>
+
+            <div class="card">
+                <div class="icon" aria-hidden>
+                    <svg width="64" height="64" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M10.5 8C10.5 7.072 11.232 6.5 12 6.5C12.768 6.5 13.5 7.072 13.5 8C13.5 9.168 12.672 9.5 12 10.5V12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="12" cy="15.5" r="1" fill="currentColor"/>
+                    </svg>
+                </div>
+
+                <div class="text">
+                    Não foi possível determinar se o link é seguro ou malicioso.
+                    Ele pode ser novo, desconhecido ou não analisado.
+                    <div class="small">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="var(--warning-text-color)" stroke-width="1.2"></circle>
+                        </svg>
+                        Recomendamos cautela. Evite inserir informações pessoais neste link.
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <form action="/" method="get">
+                    <button type="submit">Verificar outro link</button>
+                </form>
+                <a class="bottom-link" href="javascript:history.back();">Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
