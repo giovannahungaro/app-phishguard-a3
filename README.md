@@ -16,7 +16,7 @@ Kennedy de Souza Aragão - 1252423977
 
 O PhishGuard é um sistema web desenvolvido em Java com Spring Boot, projetado para analisar URLs e identificar possíveis golpes de phishing, uma das modalidades de fraude mais frequentes no setor financeiro.
 
-A aplicação:
+A aplicação java:
 
 ✔ Recebe uma URL fornecida pelo usuário
 ✔ Aplica regras internas de detecção de phishing
