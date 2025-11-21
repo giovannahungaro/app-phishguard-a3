@@ -142,3 +142,21 @@ http://malware.testing.google.test/testing
 URL inconclusiva:
 
 https://exemploqualquer.com
+
+*Projeto foi colocano no Azure Microsoft 
+
+Link Home: 
+
+https://phishguard-rg-gbgmfxf7acg2f0g8.brazilsouth-01.azurewebsites.net/index.html
+
+BD funvionario:
+
+https://phishguard-rg-gbgmfxf7acg2f0g8.brazilsouth-01.azurewebsites.net/funcionarios.php
+
+Consulta de Link:
+
+https://phishguard-rg-gbgmfxf7acg2f0g8.brazilsouth-01.azurewebsites.net/consultar_links.php
+
+Brandbook:
+
+https://phishguard-rg-gbgmfxf7acg2f0g8.brazilsouth-01.azurewebsites.net/brandbook.php
