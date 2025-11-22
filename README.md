@@ -27,7 +27,7 @@ SEGURO
 
 SUSPEITO
 
-MALWARE / MALICIOSO
+MALWARE
 
 INCONCLUSIVO
 
@@ -143,7 +143,7 @@ URL inconclusiva:
 
 https://exemploqualquer.com
 
-*Projeto foi colocano no Azure Microsoft 
+*Projeto foi colocado no Azure Microsoft 
 
 Link Home: 
 
